@@ -100,14 +100,14 @@ The following could have been improved:
 * Training for more epochs. The ERFnet paper trained for 200-250 epochs to reach convergence vs 100 epochs in this project.  
 
 ## Versions of libraries used
-opencv-python==3.4.0.14
-matplotlib==2.2.2
-numpy==1.14.3
-torch==0.4.0
-torchfile==0.1.0
-torchtext==0.2.3
-torchvision==0.2.1
-scikit-video==1.1.10
+opencv-python==3.4.0.14\
+matplotlib==2.2.2\
+numpy==1.14.3\
+torch==0.4.0\
+torchfile==0.1.0\
+torchtext==0.2.3\
+torchvision==0.2.1\
+scikit-video==1.1.10\
 scipy==1.1.0
 
 ## Example commands:
@@ -115,8 +115,7 @@ scipy==1.1.0
 `python3 train.py --device cuda --epochs 1 --batch_size 8 --savefile model_out.pth --loadfile model.pth --datadir "data"`
 
 ### Testing and scoring with an answer json file:
-`python3 test.py test_video.py --output result.json`
-
+`python3 test.py test_video.py --output result.json`\
 `python3 score.py --input result.json --answer_file Example/results.json`
 
 ## Citations:
