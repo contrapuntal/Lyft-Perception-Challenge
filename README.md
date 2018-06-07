@@ -17,11 +17,16 @@ The semantic segmentation of camera images from the CARLA simulation[1]. The cat
 ## Details  
 ### Dataset Processing 
 
-In addition to the sample dataset of 1000 provided from the project website, a dataset of 12600 was obtained by getting captures from the CARLA simulator. Most of the other captures were contributed by fellow competitors on the CarND Slack #lyftchallenge channel  (Thanks to chinkiat, faisall, and phmagic). It was clear from the dataset, that vehicle pixels were a very small portion of each image. The dataset was filtered out so that only images with greater than 2000 pixels of vehicles were included in the training set. This resulted in a training/validation dataset of 6405 pictures.
+In addition to the sample dataset of 1000 provided from the project website, a dataset of 12600 was obtained by getting captures from the CARLA simulator. Most of the other captures were contributed by fellow competitors on the CarND Slack #lyftchallenge channel  (Thanks to chinkiat, faisall, and phmagic). It was clear from the dataset, that vehicle pixels were a very small portion of each image. The dataset was filtered out so that only images with greater than 2000 pixels of vehicles were included in the training set. This resulted in a training/validation dataset of 6405 pictures. 
 
 The data was then shuffled and split into 80% for the training set and 20% for the validation set. 
 
 In the top and bottom of the picture is cropped out. The full dataset was analyzed and no vehicle or road pixels were found in the top 100 and the lower 60 pixels of the image. The resulting crop size is (440, 800).
+
+The original dataset had 13 labels: None, Buildings, Fences, Other, Pedestrians, Poles, Road Lines, Roads, Sidewalks, Vegetation, Vehicles, Walls, and Traffic Signs.
+This challenge has 3 labels: None, Roads, and Vehicles. 
+The road lines labels were reclassified as Roads. The rest of the non-Road or Vehicle labels were reclassified as None. In every image, the hood of the car that is being driven is present in the camera image. This is classified as the vehicles label in the original dataset, but is reclassified as None for this challenge. 
+
 
 ### Data Augmentation
 * Each image was randomly flipped in the horizontal direction with a probability of 0.5.
@@ -35,7 +40,7 @@ Recently, there have been a series of real time architectures for semantic segme
 The network uses a two major blocks: a Non-bottleneck 1D block and a Downsampler block. Both blocks are shown in diagrams below, which are taken from the ERFnet paper. The network is separated into two parts - the encoder and the decoder. The encoder consists of a combination of non-bottleneck 1D blocks and downsampler blocks. The decoder consists of upsampler blocks and non-bottleneck 1D blocks. 
 
 #### Non-bottleneck 1D block:
-Dropout is added at the end of every non-bottleneck 1-D block. After each combination of 3x1 and 1x3 convolutions, batch normalization is performed. Dilated convolutions of 2, 4, 8, and 16 are used in the network. Relu is used after the first 3 convolutions and at the end of the block. There's a residual connection between input of the block and the output of the block. 
+Dropout of 0.3 is added at the end of every non-bottleneck 1-D block. After each combination of 3x1 and 1x3 convolutions, batch normalization is performed. Dilated convolutions of 2, 4, 8, and 16 are used in the network. ReLU is used after the first 3 convolutions and at the end of the block. There's a residual connection between input of the block and the output of the block. 
 
 ![](writeup/nb1d.png)
 
@@ -91,6 +96,13 @@ Car F score: 0.848 | Car Precision: 0.751 | Car Recall: 0.877 | Road F score: 0.
 
 #### Leaderboard
 ![](writeup/leaderboard.png)
+
+#### Examples of images that are processed through the model. The left is the original image. The middle is the segmentation result. The ground truth is the right most image.
+![](writeup/example1.png)
+![](writeup/example2.png)
+![](writeup/example3.png)
+![](writeup/example4.png)
+![](writeup/example5.png)
 
 ## Reflections
 I learned a lot completing this project. This is the first project that I used PyTorch. Data processing and augmentation were important. The ability to set up the pipeline quickly and iterate through various architectures, hyperparameters, or different sets of processed data was crucial.
