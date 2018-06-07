@@ -81,6 +81,11 @@ The weights are initialized to the default PyTorch value based on a uniform dist
 
 Training was done on a NVIDIA GTX1080, with a batch size of 8.
 
+### Scoring
+Scoring was done according to the following equations:\
+![](writeup/score.png)
+
+
 #### Other experiments:
 1. Normalize the data by adjusting each image according to the mean and standard deviation of the dataset. This produced a extremely poor result.
 2. Adjust the images by applying color jitter transform. The brightness, contrast, and saturation were randomly changed by up to 0.5. This did not hurt the results and did not improve the loss significantly. 
@@ -89,7 +94,7 @@ Training was done on a NVIDIA GTX1080, with a batch size of 8.
 ## Result
 10th on the leaderboard
 
-#### Detailed Scoring 
+#### Detailed Scoring Result 
 Your program runs at 14.705 FPS
 
 Car F score: 0.848 | Car Precision: 0.751 | Car Recall: 0.877 | Road F score: 0.986 | Road Precision: 0.985 | Road Recall: 0.989 | Averaged F score: 0.917
